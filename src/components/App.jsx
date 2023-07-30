@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ToDoItem from "./ToDoItem";
 import InputArea from "./InputArea";
 
 function App() {
   const [inputText, setInputText] = useState("");
-  const [items, setItems] = useState(["click me to remove."]);
+  const [items, setItems] = useState(JSON.parse(localStorage.getItem("items")) || ["click me to remove."]);
+
+  useEffect(() => {
+    localStorage.setItem("items", JSON.stringify(items));
+  }, [items]);
 
   function handleChange(event) {
     const newValue = event.target.value;
